@@ -24,7 +24,7 @@ export function Contact() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">
             Get In Touch
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 break-words text-3xl font-bold text-white sm:text-4xl">
             Let&apos;s collaborate
           </h2>
           <p className="mt-6 max-w-md leading-relaxed text-brand-100">

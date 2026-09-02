@@ -4,10 +4,10 @@ import { ArrowRight } from "lucide-react";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-12 md:grid-cols-2 md:items-center">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-12 md:grid-cols-2 md:items-center w-full">
         <div>
-          <h1 className="text-4xl font-bold max-w-3xl leading-tight text-brand-950 sm:text-5xl">
-            Strengthening collaboration and partnerships across Africa
+          <h1 className="max-w-3xl break-words text-3xl font-bold leading-tight text-brand-950 sm:text-4xl md:text-5xl">
+            We strengthen collaboration & partnerships across Africa
           </h1>
           <div className="mt-10 flex flex-wrap gap-4">
             <a

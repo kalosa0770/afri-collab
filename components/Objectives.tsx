@@ -38,7 +38,7 @@ export function Objectives() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
             Our Focus
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-brand-950 sm:text-4xl">
+          <h2 className="mt-3 break-words text-3xl font-bold text-brand-950 sm:text-4xl">
             Core Objectives
           </h2>
         </FadeIn>

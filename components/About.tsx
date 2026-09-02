@@ -10,7 +10,7 @@ export function About() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
             About Us
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-brand-950 sm:text-4xl">
+          <h2 className="mt-3 break-words text-3xl font-bold text-brand-950 sm:text-4xl">
             About Afri-Collaborations for Development
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-slate-700">
