@@ -6,7 +6,7 @@ export function VisionMission() {
     <section id="vision-mission" className="bg-white py-12">
       <div className="mx-auto max-w-6xl px-6">
         {/* Mission: text left, single image right */}
-        <div className="mt-20 grid gap-16 md:grid-cols-2 md:items-center">
+        <div className="mt-20 grid grid-cols-1 gap-16 md:grid-cols-2 md:items-center">
           <FadeIn>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
               What We Do
@@ -40,7 +40,7 @@ export function VisionMission() {
         </div>
 
         {/* Vision: image collage left, text right */}
-        <div className="mt-24 grid gap-16 md:grid-cols-2 md:items-center">
+        <div className="mt-24 grid grid-cols-1 gap-16 md:grid-cols-2 md:items-center">
           <FadeIn className="relative order-2 md:order-1">
             <span
               aria-hidden

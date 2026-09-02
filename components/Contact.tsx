@@ -19,7 +19,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="bg-brand-950 py-24">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:items-start">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 md:grid-cols-2 md:items-start">
         <FadeIn>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-300">
             Get In Touch

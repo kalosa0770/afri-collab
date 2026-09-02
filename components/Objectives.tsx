@@ -43,7 +43,7 @@ export function Objectives() {
           </h2>
         </FadeIn>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {OBJECTIVES.map(({ image, title, body }, i) => (
             <FadeIn key={title} delay={(i % 3) * 0.1}>
               <div className="group h-full overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-brand-100 transition-shadow hover:shadow-lg">

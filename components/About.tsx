@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/FadeIn";
 export function About() {
   return (
     <section id="about" className="bg-brand-50 py-24">
-      <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-2 md:items-center">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-6 md:grid-cols-2 md:items-center">
         <FadeIn>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-500">
             About Us

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-12 md:grid-cols-2 md:items-center">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-12 md:grid-cols-2 md:items-center">
         <div>
           <h1 className="text-4xl font-bold max-w-3xl leading-tight text-brand-950 sm:text-5xl">
             Strengthening collaboration and partnerships across Africa
