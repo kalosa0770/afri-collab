@@ -3,31 +3,34 @@
 :root {
   --background: #ffffff;
   --foreground: #0f1b3d;
-
-  --color-brand-950: #0b1f4d;
-  --color-brand-900: #102a63;
-  --color-brand-700: #1a3f8f;
-  --color-brand-600: #1e4fb0;
-  --color-brand-500: #2563eb;
-  --color-brand-300: #93c5fd;
-  --color-brand-100: #e6eefc;
-  --color-brand-50: #f4f8fe;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Geist stays as the body font; Plus Jakarta Sans is added for headlines */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-jakarta), var(--font-geist-sans), sans-serif;
+}
 
-  --color-brand-950: var(--color-brand-950);
-  --color-brand-900: var(--color-brand-900);
-  --color-brand-700: var(--color-brand-700);
-  --color-brand-600: var(--color-brand-600);
-  --color-brand-500: var(--color-brand-500);
-  --color-brand-300: var(--color-brand-300);
-  --color-brand-100: var(--color-brand-100);
-  --color-brand-50: var(--color-brand-50);
+/* Brand colors live directly in @theme (no :root duplicates needed) */
+@theme {
+  --color-brand-950: #0b1f4d;
+  --color-brand-900: #102a63;
+  --color-brand-800: #153585; /* new: used by the header */
+  --color-brand-700: #1a3f8f;
+  --color-brand-600: #1e4fb0;
+  --color-brand-500: #2563eb;
+  --color-brand-400: #5b8def; /* new */
+  --color-brand-300: #93c5fd;
+  --color-brand-100: #e6eefc;
+  --color-brand-50: #f4f8fe;
+
+  /* New: warm accent, primary calls to action only */
+  --color-accent-500: #f2a900;
+  --color-accent-600: #d99700;
 }
 
 body {
@@ -38,4 +41,10 @@ body {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
