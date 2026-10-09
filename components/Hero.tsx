@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { STOCK_IMAGES } from "@/lib/images";
 
 // Exact wording from the company profile, section 4 (Key Focus Areas)
 const FOCUS_AREAS = [
@@ -49,10 +50,9 @@ export function Hero() {
       id="top"
       className="relative isolate flex min-h-[36rem] flex-col overflow-hidden bg-brand-950 md:min-h-[42rem] lg:min-h-[46rem]"
     >
-      {/* Photo: /public/hero-team.jpg */}
       <Image
-        src="/hero-team.jpg"
-        alt="A group of young African professionals laughing together outdoors at sunset"
+        src={STOCK_IMAGES.hero}
+        alt=""
         fill
         priority
         sizes="100vw"

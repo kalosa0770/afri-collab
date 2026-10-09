@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
+import { STOCK_IMAGES } from "@/lib/images";
 
 // Exact wording from the company profile, section 2
 const VISION =
@@ -27,13 +28,11 @@ const CORE_VALUES = [
 export function VisionMission() {
   return (
     <section id="vision-mission">
-      {/* Photo band: Vision and Mission. Image: /public/vision-mission-bg.jpg */}
       <div className="relative isolate overflow-hidden bg-brand-950 py-20 md:py-28">
         <Image
-          src="/vision-mission-bg.jpg"
+          src={STOCK_IMAGES.vision}
           alt=""
           fill
-          unoptimized
           sizes="100vw"
           className="-z-20 object-cover"
         />

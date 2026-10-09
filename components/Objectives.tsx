@@ -13,14 +13,14 @@ import {
   Users,
 } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
+import { STOCK_IMAGES } from "@/lib/images";
 
 // Titles: company profile, section 4 (Key Focus Areas).
 // Points: wording taken verbatim from other sections of the profile.
-// Images: put these files in /public (see filenames below).
 const FOCUS_AREAS = [
   {
     icon: Sprout,
-    image: "/focus-youth.jpg",
+    image: STOCK_IMAGES.focusYouth,
     title: "Youth Development and Empowerment",
     points: [
       "SDG 8: Decent Work and Economic Growth (through youth empowerment initiatives)",
@@ -29,7 +29,7 @@ const FOCUS_AREAS = [
   },
   {
     icon: Scale,
-    image: "/focus-governance.jpg",
+    image: STOCK_IMAGES.focusGovernance,
     title: "Leadership and Governance",
     points: [
       "SDG 16: Peace, Justice and Strong Institutions (through governance and leadership initiatives)",
@@ -38,7 +38,7 @@ const FOCUS_AREAS = [
   },
   {
     icon: Users,
-    image: "/focus-community.jpg",
+    image: STOCK_IMAGES.focusCommunity,
     title: "Community Development and Social Inclusion",
     points: [
       "Inclusivity: Ensuring no one is left behind in development processes",
@@ -47,7 +47,7 @@ const FOCUS_AREAS = [
   },
   {
     icon: Building2,
-    image: "/focus-capacity.jpg",
+    image: STOCK_IMAGES.focusCapacity,
     title: "Capacity Building and Institutional Strengthening",
     points: [
       "To strengthen institutional and community capacity for sustainable development",
@@ -57,7 +57,7 @@ const FOCUS_AREAS = [
   },
   {
     icon: HeartHandshake,
-    image: "/focus-partnerships.jpg",
+    image: STOCK_IMAGES.focusPartnerships,
     title: "Strategic Partnerships and Collaboration",
     points: [
       "To facilitate strategic partnerships among development stakeholders",
@@ -67,7 +67,7 @@ const FOCUS_AREAS = [
   },
   {
     icon: Megaphone,
-    image: "/focus-policy.jpg",
+    image: STOCK_IMAGES.focusPolicy,
     title: "Policy Engagement and Development Advocacy",
     points: [
       "To promote knowledge sharing and evidence-based decision-making",
@@ -120,7 +120,6 @@ export function Objectives() {
                   src={image}
                   alt=""
                   fill
-                  unoptimized
                   sizes="(min-width: 1024px) 28rem, 90vw"
                   className={`object-cover transition-opacity duration-700 motion-reduce:transition-none ${
                     i === shown ? "opacity-100" : "opacity-0"

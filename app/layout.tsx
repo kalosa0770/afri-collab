@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { STOCK_IMAGES } from "@/lib/images";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +33,13 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Afri Collabs for Development",
     type: "website",
-    images: [{ url: "/hero-photo.jpg" }],
+    images: [{ url: STOCK_IMAGES.hero }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Afri Collabs for Development",
     description,
-    images: ["/hero-photo.jpg"],
+    images: [STOCK_IMAGES.hero],
   },
 };
 

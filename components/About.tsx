@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { ServicesSlider } from "@/components/ServicesSlider";
+import { STOCK_IMAGES } from "@/lib/images";
 
 // All wording below is taken from the company profile:
 // section 1 (Company Overview) and 11 (Geographic Scope).
@@ -30,14 +31,12 @@ export function About() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            {/* Image: /public/about-overview.jpg */}
             <div className="relative">
               <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-brand-900 shadow-xl ring-1 ring-brand-900/10 lg:aspect-[4/5]">
                 <Image
-                  src="/about-overview.jpg"
+                  src={STOCK_IMAGES.about}
                   alt=""
                   fill
-                  unoptimized
                   sizes="(min-width: 1024px) 30rem, 90vw"
                   className="object-cover"
                 />

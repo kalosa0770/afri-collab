@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, ChevronDown, MapPin, Send } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
+import { STOCK_IMAGES } from "@/lib/images";
 
 type Status = "idle" | "submitting" | "sent" | "error";
 
@@ -47,12 +48,10 @@ export function Contact() {
       id="contact"
       className="relative isolate overflow-hidden bg-brand-950 py-20 md:py-28"
     >
-      {/* Background photo: /public/contact-bg.jpg */}
       <Image
-        src="/contact-bg.jpg"
+        src={STOCK_IMAGES.contact}
         alt=""
         fill
-        unoptimized
         sizes="100vw"
         className="-z-20 object-cover"
       />
