@@ -2,28 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-// Section ids are unchanged, so the page anchors keep working.
 const NAV_LINKS = [
-  { href: "#objectives", label: "Key Focus Areas" },
-  { href: "#vision-mission", label: "Vision & Mission" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/key-focus-areas", label: "Key Focus Areas" },
+  { href: "/vision-mission", label: "Vision & Mission" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const FOCUS =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500";
 
 export function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const [active, setActive] = useState<string>(pathname);
   const reduce = useReducedMotion();
 
-  // Compact the header once the page scrolls.
+  useEffect(() => {
+    setActive(pathname);
+  }, [pathname]);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -31,25 +40,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Highlight the link for the section currently in view.
-  useEffect(() => {
-    const sections = NAV_LINKS.map((l) =>
-      document.getElementById(l.href.slice(1))
-    ).filter((el): el is HTMLElement => el !== null);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(`#${e.target.id}`);
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px" }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
-
-  // Lock page scroll and close on Escape while the drawer is open.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -78,7 +68,7 @@ export function Header() {
           }`}
         >
           <Link
-            href="#top"
+            href="/"
             className={`flex items-center rounded-md ${FOCUS}`}
             onClick={() => setOpen(false)}
           >
@@ -99,10 +89,10 @@ export function Header() {
             {NAV_LINKS.map((link) => {
               const isActive = active === link.href;
               return (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
-                  aria-current={isActive ? "location" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                   className={`relative py-1 text-[15px] font-medium transition-colors ${FOCUS} ${
                     isActive
                       ? "text-brand-800"
@@ -116,18 +106,18 @@ export function Header() {
                       isActive ? "scale-x-100" : "scale-x-0"
                     }`}
                   />
-                </a>
+                </Link>
               );
             })}
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className={`hidden rounded-full bg-accent-500 px-6 py-2.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 md:inline-block ${FOCUS}`}
             >
               Partner with us
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -142,8 +132,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Outside <header> so its backdrop-blur doesn't become the containing
-          block for these fixed-position elements. */}
       <AnimatePresence>
         {open && (
           <>
@@ -187,7 +175,7 @@ export function Header() {
 
               <div className="mt-8 flex flex-col divide-y divide-brand-100 border-y border-brand-100">
                 {NAV_LINKS.map((link) => (
-                  <a
+                  <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
@@ -198,17 +186,17 @@ export function Header() {
                     }`}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 onClick={() => setOpen(false)}
                 className={`mt-auto rounded-full bg-accent-500 px-5 py-3 text-center text-base font-semibold text-brand-950 hover:bg-accent-600 ${FOCUS}`}
               >
                 Partner with us
-              </a>
+              </Link>
             </motion.nav>
           </>
         )}
