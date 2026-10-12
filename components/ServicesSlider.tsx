@@ -28,27 +28,22 @@ const ACTIVITY_GALLERY = [
   {
     src: STOCK_IMAGES.galleryYouth,
     alt: "Students working together on a classroom activity",
-    caption: "Youth learning and empowerment",
   },
   {
     src: STOCK_IMAGES.galleryCommunity,
     alt: "Community members meeting with local representatives",
-    caption: "Community engagement",
   },
   {
     src: STOCK_IMAGES.galleryPartnerships,
     alt: "Colleagues celebrating a collaborative achievement",
-    caption: "Partnerships and collaboration",
   },
   {
     src: STOCK_IMAGES.galleryLeadership,
     alt: "A team celebrating a shared success",
-    caption: "Leadership and governance",
   },
   {
     src: STOCK_IMAGES.gallerySustainableDevelopment,
     alt: "A farmer tending crops in a field",
-    caption: "Sustainable livelihoods",
   },
 ];
 
@@ -221,7 +216,7 @@ export function ServicesSlider() {
         </div>
 
         <ul className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {ACTIVITY_GALLERY.map(({ src, alt, caption }) => (
+          {ACTIVITY_GALLERY.map(({ src, alt }) => (
             <li key={src}>
               <figure className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 shadow-sm ring-1 ring-brand-900/10">
                 <Image
@@ -231,13 +226,6 @@ export function ServicesSlider() {
                   sizes="(min-width: 1024px) 23rem, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
                 />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-transparent to-transparent"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 p-5 font-display text-lg font-bold text-white">
-                  {caption}
-                </figcaption>
               </figure>
             </li>
           ))}

@@ -11,11 +11,11 @@ export const STOCK_IMAGES = {
   focusCapacity: "/images/capacity-building.jpg",
   focusPartnerships: "/images/partnerships.jpg",
   focusPolicy: "/images/policy.jpg",
-  galleryYouth: "/objective-leadership.jpg",
-  galleryCommunity: "/objective-governance.jpg",
-  galleryPartnerships: "/objective-collaboration.jpg",
-  galleryLeadership: "/objective-knowledge.jpg",
-  gallerySustainableDevelopment: "/objective-sustainable.jpg",
+  galleryYouth: "/images/gallery-1.jpg",
+  galleryCommunity: "/images/gallery-2.jpg",
+  galleryPartnerships: "/images/gallery-3.jpg",
+  galleryLeadership: "/images/gallery-4.jpg",
+  gallerySustainableDevelopment: "/images/gallery-5.jpg",
 
   // Core values (stock for now; swap for your own photos later)
   valueCollaboration: "https://images.unsplash.com/photo-1758873269317-51888e824b28?auto=format&fit=crop&w=1400&q=80",
