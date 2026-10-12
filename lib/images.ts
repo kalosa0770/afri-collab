@@ -1,7 +1,7 @@
 // Save as: lib/images.ts
 // Replace these URLs with local image paths when your own photos are ready.
 export const STOCK_IMAGES = {
-  hero: "/images/hero-img.jpg",
+  hero: "/images/hero-img.jpg?v=2",
   about: "/images/about-img.jpg",
   vision: "/images/vision-bg.jpg",
   contact: "/images/contact-img.jpg",
@@ -11,6 +11,11 @@ export const STOCK_IMAGES = {
   focusCapacity: "/images/capacity-building.jpg",
   focusPartnerships: "/images/partnerships.jpg",
   focusPolicy: "/images/policy.jpg",
+  galleryYouth: "/objective-leadership.jpg",
+  galleryCommunity: "/objective-governance.jpg",
+  galleryPartnerships: "/objective-collaboration.jpg",
+  galleryLeadership: "/objective-knowledge.jpg",
+  gallerySustainableDevelopment: "/objective-sustainable.jpg",
 
   // Core values (stock for now; swap for your own photos later)
   valueCollaboration: "https://images.unsplash.com/photo-1758873269317-51888e824b28?auto=format&fit=crop&w=1400&q=80",

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   BarChart3,
@@ -11,6 +12,7 @@ import {
   MessagesSquare,
   PencilRuler,
 } from "lucide-react";
+import { STOCK_IMAGES } from "@/lib/images";
 
 // Exact wording from the company profile, section 6 (Services / Activities)
 const SERVICES = [
@@ -20,6 +22,34 @@ const SERVICES = [
   { icon: FileSearch, text: "Research, policy analysis, and knowledge products" },
   { icon: MessagesSquare, text: "Stakeholder convening and dialogue facilitation" },
   { icon: BarChart3, text: "Monitoring, evaluation, and learning support" },
+];
+
+const ACTIVITY_GALLERY = [
+  {
+    src: STOCK_IMAGES.galleryYouth,
+    alt: "Students working together on a classroom activity",
+    caption: "Youth learning and empowerment",
+  },
+  {
+    src: STOCK_IMAGES.galleryCommunity,
+    alt: "Community members meeting with local representatives",
+    caption: "Community engagement",
+  },
+  {
+    src: STOCK_IMAGES.galleryPartnerships,
+    alt: "Colleagues celebrating a collaborative achievement",
+    caption: "Partnerships and collaboration",
+  },
+  {
+    src: STOCK_IMAGES.galleryLeadership,
+    alt: "A team celebrating a shared success",
+    caption: "Leadership and governance",
+  },
+  {
+    src: STOCK_IMAGES.gallerySustainableDevelopment,
+    alt: "A farmer tending crops in a field",
+    caption: "Sustainable livelihoods",
+  },
 ];
 
 const INTERVAL_MS = 4500;
@@ -175,6 +205,44 @@ export function ServicesSlider() {
           </button>
         ))}
       </div>
+
+      <section aria-labelledby="activity-gallery-heading" className="mt-14">
+        <div className="max-w-2xl">
+          <h4
+            id="activity-gallery-heading"
+            className="font-display text-2xl font-extrabold tracking-tight text-brand-950"
+          >
+            Our Work in Action
+          </h4>
+          <p className="mt-3 leading-relaxed text-brand-900/75">
+            A glimpse of the workshops, conversations, and partnerships behind
+            our development work.
+          </p>
+        </div>
+
+        <ul className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {ACTIVITY_GALLERY.map(({ src, alt, caption }) => (
+            <li key={src}>
+              <figure className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100 shadow-sm ring-1 ring-brand-900/10">
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(min-width: 1024px) 23rem, (min-width: 640px) 45vw, 90vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-transparent to-transparent"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-5 font-display text-lg font-bold text-white">
+                  {caption}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
