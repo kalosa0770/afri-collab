@@ -27,23 +27,23 @@ const SERVICES = [
 const ACTIVITY_GALLERY = [
   {
     src: STOCK_IMAGES.galleryYouth,
-    alt: "Students working together on a classroom activity",
+    alt: "Two participants presenting, one speaking into a microphone",
   },
   {
     src: STOCK_IMAGES.galleryCommunity,
-    alt: "Community members meeting with local representatives",
+    alt: "A participant speaking during a group discussion",
   },
   {
     src: STOCK_IMAGES.galleryPartnerships,
-    alt: "Colleagues celebrating a collaborative achievement",
+    alt: "Participants holding a certificate together",
   },
   {
     src: STOCK_IMAGES.galleryLeadership,
-    alt: "A team celebrating a shared success",
+    alt: "A participant speaking into a microphone",
   },
   {
-    src: STOCK_IMAGES.gallerySustainableDevelopment,
-    alt: "A farmer tending crops in a field",
+    src: STOCK_IMAGES.galleryGroupLearning,
+    alt: "Participants in an outdoor group discussion",
   },
 ];
 

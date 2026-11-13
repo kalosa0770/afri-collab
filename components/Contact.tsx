@@ -50,7 +50,7 @@ export function Contact({ standalone = false }: { standalone?: boolean }) {
       className="relative isolate overflow-hidden bg-brand-950 py-20 md:py-24"
     >
       <Image
-        src={STOCK_IMAGES.contact}
+        src={standalone ? STOCK_IMAGES.contactPage : STOCK_IMAGES.contact}
         alt=""
         fill
         priority={standalone}

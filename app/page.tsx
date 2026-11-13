@@ -37,21 +37,21 @@ const FOCUS_AREAS = [
     number: "01",
     title: "Youth development",
     text: "Supporting young people and strengthening local leadership.",
-    image: STOCK_IMAGES.focusYouth,
+    image: STOCK_IMAGES.homeFocusYouth,
     href: "/key-focus-areas#youth-development",
   },
   {
     number: "02",
     title: "Leadership & governance",
     text: "Promoting leadership and strong, inclusive institutions.",
-    image: STOCK_IMAGES.focusGovernance,
+    image: STOCK_IMAGES.homeFocusGovernance,
     href: "/key-focus-areas#leadership-governance",
   },
   {
     number: "03",
     title: "Community & inclusion",
     text: "Bringing people together for more inclusive development.",
-    image: STOCK_IMAGES.focusCommunity,
+    image: STOCK_IMAGES.homeFocusCommunity,
     href: "/key-focus-areas#community-development",
   },
 ];
@@ -141,7 +141,7 @@ export default function Home() {
             <FadeIn>
               <div className="grid overflow-hidden rounded-3xl bg-brand-950 lg:grid-cols-2">
                 <div className="relative min-h-[300px] lg:min-h-[420px]">
-                  <Image src={STOCK_IMAGES.about} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+                  <Image src={STOCK_IMAGES.homeAbout} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
                 </div>
                 <div id="vision-mission" className="flex flex-col justify-center p-8 text-white sm:p-12 lg:p-14">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">Our shared purpose</p>

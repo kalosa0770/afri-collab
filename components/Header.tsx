@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/key-focus-areas", label: "Key Focus Areas" },
   { href: "/vision-mission", label: "Vision & Mission" },
   { href: "/about", label: "About" },
+  { href: "/cohorts", label: "Cohorts" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -103,7 +104,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative rounded-full px-3 py-2.5 text-sm font-semibold transition-colors motion-reduce:transition-none ${FOCUS} ${
+                className={`relative rounded-full px-2 py-2.5 text-sm font-semibold transition-colors motion-reduce:transition-none xl:px-3 ${FOCUS} ${
                   isActive
                     ? "bg-brand-50 text-brand-800"
                     : "text-brand-900/75 hover:bg-brand-50 hover:text-brand-800"

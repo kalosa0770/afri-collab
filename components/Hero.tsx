@@ -8,8 +8,8 @@ import { STOCK_IMAGES } from "@/lib/images";
 
 const SLIDES = [
   { image: STOCK_IMAGES.hero, label: "Connecting people and ideas" },
-  { image: STOCK_IMAGES.focusYouth, label: "Supporting the next generation" },
-  { image: STOCK_IMAGES.focusCommunity, label: "Building stronger communities" },
+  { image: STOCK_IMAGES.heroYouth, label: "Supporting the next generation" },
+  { image: STOCK_IMAGES.heroCommunity, label: "Building stronger communities" },
 ];
 
 export function Hero() {

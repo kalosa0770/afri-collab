@@ -29,6 +29,7 @@ const FOCUS_AREAS = [
     id: "youth-development",
     icon: Sprout,
     image: STOCK_IMAGES.focusYouth,
+    heroImage: STOCK_IMAGES.focusHeroYouth,
     title: "Youth Development and Empowerment",
     points: [
       "SDG 8: Decent Work and Economic Growth (through youth empowerment initiatives)",
@@ -39,6 +40,7 @@ const FOCUS_AREAS = [
     id: "leadership-governance",
     icon: Scale,
     image: STOCK_IMAGES.focusGovernance,
+    heroImage: STOCK_IMAGES.focusHeroGovernance,
     title: "Leadership and Governance",
     points: [
       "SDG 16: Peace, Justice and Strong Institutions (through governance and leadership initiatives)",
@@ -49,6 +51,7 @@ const FOCUS_AREAS = [
     id: "community-development",
     icon: Users,
     image: STOCK_IMAGES.focusCommunity,
+    heroImage: STOCK_IMAGES.focusHeroCommunity,
     title: "Community Development and Social Inclusion",
     points: [
       "Inclusivity: Ensuring no one is left behind in development processes",
@@ -59,6 +62,7 @@ const FOCUS_AREAS = [
     id: "capacity-building",
     icon: Building2,
     image: STOCK_IMAGES.focusCapacity,
+    heroImage: STOCK_IMAGES.focusHeroCapacity,
     title: "Capacity Building and Institutional Strengthening",
     points: [
       "To strengthen institutional and community capacity for sustainable development",
@@ -70,6 +74,7 @@ const FOCUS_AREAS = [
     id: "strategic-partnerships",
     icon: HeartHandshake,
     image: STOCK_IMAGES.focusPartnerships,
+    heroImage: STOCK_IMAGES.focusHeroPartnerships,
     title: "Strategic Partnerships and Collaboration",
     points: [
       "To facilitate strategic partnerships among development stakeholders",
@@ -81,6 +86,7 @@ const FOCUS_AREAS = [
     id: "policy-engagement",
     icon: Megaphone,
     image: STOCK_IMAGES.focusPolicy,
+    heroImage: STOCK_IMAGES.focusHeroPolicy,
     title: "Policy Engagement and Development Advocacy",
     points: [
       "To promote knowledge sharing and evidence-based decision-making",
@@ -108,7 +114,7 @@ export default function KeyFocusAreasPage() {
       <Header />
       <main className="flex-1 bg-white">
         <KeyFocusHero
-          slides={FOCUS_AREAS.map(({ id, title, image }) => ({ id, title, image }))}
+          slides={FOCUS_AREAS.map(({ id, title, heroImage }) => ({ id, title, image: heroImage }))}
         />
 
         <section id="focus-areas" className="bg-brand-50 py-14 md:py-16">
