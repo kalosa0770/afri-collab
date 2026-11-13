@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description: "Explore photographs of learning, conversation, and connection from past Afri-Collabs cohorts.",
 };
 
-const PHOTOS: { src: StaticImageData; alt: string; caption: string; contain?: boolean }[] = [
+const PHOTOS: { src: StaticImageData; alt: string; caption: string }[] = [
   { src: workshop, alt: "Participants gathered around tables during a workshop", caption: "Learning together" },
   { src: facilitator, alt: "A facilitator speaking to workshop participants", caption: "Sharing perspectives" },
   { src: presentation, alt: "Two participants presenting to the group", caption: "Ideas in conversation" },
@@ -40,7 +40,6 @@ const PHOTOS: { src: StaticImageData; alt: string; caption: string; contain?: bo
   { src: groupActivity, alt: "A participant with a notebook speaking during a group activity", caption: "Taking part" },
   { src: riversidePortrait, alt: "Two people sitting together by the water", caption: "A shared moment" },
   { src: riverOuting, alt: "A group spending time together on a boat", caption: "Connecting beyond the workshop" },
-  { src: riversideSunset, alt: "Sunset over the water", caption: "A moment to reflect", contain: true },
 ];
 
 export default function CohortsPage() {
@@ -48,7 +47,9 @@ export default function CohortsPage() {
     <>
       <Header />
       <main className="flex-1 bg-white">
-        <section className="bg-brand-950 text-white">
+        <section className="relative isolate overflow-hidden bg-brand-950 text-white">
+          <Image src={riversideSunset} alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[center_48%]" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/75" />
           <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10 md:py-20 lg:px-12">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">Our community</p>
             <h1 className="font-display mt-5 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
@@ -75,7 +76,7 @@ export default function CohortsPage() {
               </p>
             </FadeIn>
             <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {PHOTOS.map(({ src, alt, caption, contain }, i) => (
+              {PHOTOS.map(({ src, alt, caption }, i) => (
                 <li key={src.src}>
                   <FadeIn delay={(i % 3) * 0.06} className="h-full">
                     <figure className="group h-full overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-brand-900/10">
@@ -86,7 +87,7 @@ export default function CohortsPage() {
                           fill
                           loading="eager"
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className={contain ? "object-contain" : "object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"}
+                          className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
                         />
                       </div>
                       <figcaption className="px-5 py-4 text-sm font-semibold text-brand-950">{caption}</figcaption>
