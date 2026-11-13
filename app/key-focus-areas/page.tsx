@@ -1,11 +1,10 @@
-// Save as: app/key-focus-areas/page.tsx
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import {
   Building2,
   Check,
   HeartHandshake,
-  Link,
   Megaphone,
   Scale,
   Sprout,
@@ -15,6 +14,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
 import { KeyFocusHero } from "@/components/KeyFocusHero";
+import { PageCallToAction } from "@/components/PageCallToAction";
 import { STOCK_IMAGES } from "@/lib/images";
 
 export const metadata: Metadata = {
@@ -107,21 +107,37 @@ export default function KeyFocusAreasPage() {
     <>
       <Header />
       <main className="flex-1 bg-white">
-        {/* Slideshow hero: rotates through the six focus areas */}
         <KeyFocusHero
           slides={FOCUS_AREAS.map(({ id, title, image }) => ({ id, title, image }))}
         />
 
-        {/* One row per focus area, alternating image side */}
-        <div className="mx-auto max-w-6xl space-y-20 px-6 py-20 md:space-y-28 md:py-28">
+        <section id="focus-areas" className="bg-brand-50 py-14 md:py-16">
+          <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-12">
+            <FadeIn>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">Explore our work</p>
+              <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-brand-950">Six areas, one shared purpose.</h2>
+              <p className="mt-3 max-w-2xl leading-7 text-brand-900/75">Choose an area to learn more about our priorities and how they connect to development goals.</p>
+            </FadeIn>
+            <nav aria-label="Focus areas" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {FOCUS_AREAS.map(({ id, title }, i) => (
+                <a key={id} href={`#${id}`} className="group flex items-center gap-4 rounded-xl bg-white p-4 text-sm font-semibold text-brand-950 ring-1 ring-brand-100 transition-colors hover:bg-brand-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500">
+                  <span className="text-xs font-bold text-brand-600">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{title}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-7xl space-y-20 px-6 py-20 sm:px-10 md:space-y-24 md:py-24 lg:px-12">
           {FOCUS_AREAS.map(({ id, icon: Icon, image, title, points }, i) => (
             <FadeIn key={id}>
               <section
                 id={id}
-                className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+                className="grid items-center gap-8 lg:grid-cols-2 lg:gap-20"
               >
                 <div
-                  className={`relative aspect-[4/3] overflow-hidden rounded-3xl bg-brand-900 shadow-xl ring-1 ring-brand-900/10 ${
+                  className={`relative aspect-[4/3] overflow-hidden rounded-3xl bg-brand-900 ${
                     i % 2 === 1 ? "lg:order-2" : ""
                   }`}
                 >
@@ -132,21 +148,19 @@ export default function KeyFocusAreasPage() {
                     className="object-cover"
                     sizes="(min-width: 1024px) 36rem, 100vw"
                   />
-                  {/* Shared blue tint so mixed stock photos feel like one set */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-brand-800/25 mix-blend-multiply"
-                  />
                 </div>
 
                 <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-800 text-white">
-                    <Icon aria-hidden className="h-6 w-6" />
-                  </span>
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                      <Icon aria-hidden className="h-6 w-6" />
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">Focus area {String(i + 1).padStart(2, "0")}</span>
+                  </div>
                   <h2 className="font-display mt-5 text-2xl font-extrabold leading-tight tracking-tight text-brand-950 sm:text-3xl">
                     {title}
                   </h2>
-                  <ul className="mt-6 space-y-3">
+                  <ul className="mt-6 space-y-4 border-t border-brand-100 pt-6">
                     {points.map((p) => (
                       <li
                         key={p}
@@ -165,15 +179,15 @@ export default function KeyFocusAreasPage() {
             </FadeIn>
           ))}
 
-          {/* Organizational Objectives */}
           <FadeIn>
-            <div className="grid gap-10 rounded-3xl bg-brand-900 p-8 sm:p-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+            <div className="grid gap-10 rounded-3xl bg-brand-950 p-8 sm:p-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
               <div>
+                <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-accent-500">What we work towards</p>
                 <h2 className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
                   Organizational Objectives
                 </h2>
                 <Link
-                  href="/company-profile"
+                  href="/about"
                   className={`mt-2 inline-flex items-center gap-1 text-sm font-medium text-white/80 transition-colors hover:text-white ${FOCUS_WHITE}`}
                 >
                   Learn more about our company
@@ -194,6 +208,7 @@ export default function KeyFocusAreasPage() {
             </div>
           </FadeIn>
         </div>
+        <PageCallToAction />
       </main>
       <Footer />
     </>

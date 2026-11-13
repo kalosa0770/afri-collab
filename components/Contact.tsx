@@ -10,6 +10,7 @@ type Status = "idle" | "submitting" | "sent" | "error";
 
 // Stakeholder list: company profile, section 8
 const ROLES = [
+  "Young leader",
   "Youth and community-based groups",
   "Civil society organizations and NGOs",
   "Government institutions and public sector agencies",
@@ -21,7 +22,7 @@ const FIELD =
   "mt-1.5 w-full rounded-xl border border-brand-200 bg-white px-4 py-3 text-[15px] text-brand-950 placeholder:text-brand-900/40 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100";
 const LABEL = "text-sm font-semibold text-brand-950";
 
-export function Contact() {
+export function Contact({ standalone = false }: { standalone?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -46,24 +47,28 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden bg-brand-950 py-20 md:py-28"
+      className="relative isolate overflow-hidden bg-brand-950 py-20 md:py-24"
     >
       <Image
         src={STOCK_IMAGES.contact}
         alt=""
         fill
+        priority={standalone}
         sizes="100vw"
         className="-z-20 object-cover"
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-brand-950/85" />
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 sm:px-10 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-20 lg:px-12">
         <FadeIn>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Let&apos;s collaborate
-          </h2>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">Start a conversation</p>
+          {standalone ? (
+            <h1 className="font-display mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Let&apos;s collaborate.</h1>
+          ) : (
+            <h2 className="font-display mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">Let&apos;s collaborate.</h2>
+          )}
           <p className="mt-6 max-w-md text-lg leading-relaxed text-white/85">
-            Whether you are a youth or community-based group, a civil society
+            Whether you are a young leader, a youth or community-based group, a civil society
             organization, a government institution, a private sector partner,
             or a development agency or donor, we would love to hear from you.
           </p>
@@ -99,8 +104,12 @@ export function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="space-y-5 rounded-3xl bg-white p-8 shadow-2xl sm:p-10"
+              className="relative space-y-5 rounded-3xl bg-white p-6 shadow-2xl sm:p-10"
             >
+              <div>
+                <p className="font-display text-xl font-bold text-brand-950">Send us a message</p>
+                <p className="mt-2 text-sm leading-6 text-brand-900/75">Tell us a little about yourself and how you would like to connect. All fields are required unless marked optional.</p>
+              </div>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={LABEL}>
@@ -204,7 +213,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent-500 px-6 py-3.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent-500 px-6 py-3.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "submitting" ? "Sending..." : "Send message"}
                 <Send aria-hidden className="h-4 w-4" />

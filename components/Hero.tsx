@@ -1,150 +1,78 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { STOCK_IMAGES } from "@/lib/images";
 
-// Exact wording from the company profile, section 4 (Key Focus Areas)
-const FOCUS_AREAS = [
-  "Youth Development and Empowerment",
-  "Leadership and Governance",
-  "Community Development and Social Inclusion",
-  "Capacity Building and Institutional Strengthening",
-  "Strategic Partnerships and Collaboration",
-  "Policy Engagement and Development Advocacy",
+const SLIDES = [
+  { image: STOCK_IMAGES.hero, label: "Connecting people and ideas" },
+  { image: STOCK_IMAGES.focusYouth, label: "Supporting the next generation" },
+  { image: STOCK_IMAGES.focusCommunity, label: "Building stronger communities" },
 ];
-
-const LEAD_IN = "We are a not-for-profit organization that focuses on";
-const INTERVAL_MS = 3500;
-
-const FOCUS =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 export function Hero() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
 
-  // Respect reduced-motion: no auto-rotation, people can use the dots instead.
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  // Advance every few seconds; restarts whenever the slide changes.
-  useEffect(() => {
-    if (paused || reduceMotion) return;
-    const id = setTimeout(
-      () => setIndex((i) => (i + 1) % FOCUS_AREAS.length),
-      INTERVAL_MS
-    );
-    return () => clearTimeout(id);
-  }, [index, paused, reduceMotion]);
+  function move(direction: number) {
+    setIndex((current) => (current + direction + SLIDES.length) % SLIDES.length);
+  }
 
   return (
-    <section
-      id="top"
-      className="relative isolate flex min-h-[36rem] flex-col overflow-hidden bg-brand-950 md:min-h-[42rem] lg:min-h-[46rem]"
-    >
-      <Image
-        src={STOCK_IMAGES.hero}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="-z-20 object-cover object-[68%_45%] md:object-[50%_45%]"
-      />
-      {/* Scrim: even on phones, heavier on the text side from tablet up */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-brand-950/70 md:bg-brand-950/20"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 hidden bg-linear-to-r from-brand-950/90 via-brand-950/65 to-transparent md:block"
-      />
-
-      <div
-        className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-16 md:py-24"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        {/* Screen readers get the full sentence once, not the rotation */}
-        <h1 className="sr-only">
-          {LEAD_IN} {FOCUS_AREAS.join(", ")}.
-        </h1>
-
-        <p
-          aria-hidden
-          className="font-display text-lg font-semibold text-white/85 sm:text-xl"
-        >
-          {LEAD_IN}
-        </p>
-
-        {/* All slides share one grid cell, so the tallest sets the height and
-            nothing below jumps when the text changes. */}
-        <div aria-hidden className="mt-3 grid max-w-3xl">
-          {FOCUS_AREAS.map((area, i) => (
-            <span
-              key={area}
-              className={`font-display col-start-1 row-start-1 text-4xl font-extrabold leading-[1.1] tracking-tight text-white transition-all duration-500 ease-out motion-reduce:transition-none sm:text-5xl lg:text-[3.5rem] ${
-                i === index
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none translate-y-4 opacity-0"
-              }`}
-            >
-              {area}
-            </span>
-          ))}
+    <section id="top" className="relative overflow-hidden bg-brand-950 text-white">
+      <div className="mx-auto grid max-w-7xl lg:min-h-[640px] lg:grid-cols-[1fr_1fr]">
+        <div className="relative z-10 flex flex-col justify-center px-6 pb-12 pt-16 sm:px-10 lg:py-24 lg:pl-12 lg:pr-10">
+          <p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-accent-500">
+            <span className="h-px w-8 bg-accent-500" aria-hidden="true" />
+            Connect. Collaborate. Drive impact.
+          </p>
+          <h1 className="font-display mt-7 max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl xl:text-[3.8rem]">
+            Building a better future, <span className="text-accent-500">together.</span>
+          </h1>
+          <p className="mt-6 max-w-lg text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
+            We bring people and organizations together to strengthen leadership,
+            empower communities, and advance sustainable development across Africa.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/contact" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-accent-500 px-7 py-3 text-sm font-bold text-brand-950 transition-colors hover:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              Partner with us <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+            <a href="#our-work" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              Explore our work <ArrowDown aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
+          <p className="mt-10 text-sm text-white/60">Based in Lusaka, Zambia <span aria-hidden="true" className="mx-2 text-accent-500">•</span> A regional outlook</p>
         </div>
 
-        <div
-          role="group"
-          aria-label="Choose a focus area"
-          className="mt-6 -ml-2 flex items-center"
-        >
-          {FOCUS_AREAS.map((area, i) => (
-            <button
-              key={area}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={area}
-              aria-current={i === index}
-              className={`group rounded-full p-2 ${FOCUS}`}
-            >
-              <span
-                className={`block h-1.5 rounded-full transition-all duration-300 ${
-                  i === index
-                    ? "w-8 bg-accent-500"
-                    : "w-1.5 bg-white/50 group-hover:bg-white"
-                }`}
-              />
-            </button>
+        <div role="region" aria-roledescription="carousel" aria-label="Our focus in pictures" className="relative min-h-[310px] overflow-hidden sm:min-h-[400px] lg:min-h-full">
+          {SLIDES.map((slide, i) => (
+            <Image
+              key={slide.image}
+              src={slide.image}
+              alt=""
+              fill
+              priority={i === 0}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className={`object-cover transition-opacity duration-700 motion-reduce:transition-none ${i === index ? "opacity-100" : "opacity-0"}`}
+            />
           ))}
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a
-            href="#contact"
-            className={`inline-flex items-center rounded-full bg-accent-500 px-7 py-3.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 ${FOCUS}`}
-          >
-            Partner with us
-          </a>
-          <a
-            href="#objectives"
-            className={`group inline-flex items-center gap-2 rounded-md text-sm font-semibold text-white ${FOCUS}`}
-          >
-            <span className="underline decoration-white/40 underline-offset-4 transition-colors group-hover:decoration-white">
-              Key Focus Areas
-            </span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-brand-950/85 via-brand-950/10 to-brand-950/10" />
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-8">
+            <div aria-live="polite">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/75">A shared purpose</p>
+              <p className="font-display mt-2 text-lg font-bold sm:text-xl">{SLIDES[index].label}</p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <span className="mr-2 text-xs font-semibold tabular-nums text-white/80">{String(index + 1).padStart(2, "0")} / 03</span>
+              <button type="button" onClick={() => move(-1)} aria-label="Previous image" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/60 text-white transition-colors hover:bg-white hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                <ArrowLeft aria-hidden="true" className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={() => move(1)} aria-label="Next image" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/60 text-white transition-colors hover:bg-white hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

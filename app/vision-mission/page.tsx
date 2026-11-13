@@ -1,64 +1,22 @@
-// Save as: app/vision-mission/page.tsx
 import Image from "next/image";
 import type { Metadata } from "next";
-import {
-  HeartHandshake,
-  Lightbulb,
-  ShieldCheck,
-  Target,
-  Users,
-} from "lucide-react";
+import { HeartHandshake, Lightbulb, ShieldCheck, Target, Users } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FadeIn } from "@/components/FadeIn";
+import { PageCallToAction } from "@/components/PageCallToAction";
 import { STOCK_IMAGES } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Vision, Mission, and Core Values | Afri-Collabs for Development",
 };
 
-// Intro sentence: from the Company Overview in the company profile
-const INTRO =
-  "The organization is dedicated to fostering strategic partnerships that enhance the effectiveness, reach, and sustainability of development initiatives across Africa.";
-
-// Exact wording from the company profile, section 2
-const VISION =
-  "An Africa where collaborative action drives sustainable, inclusive, and scalable development outcomes.";
-const MISSION =
-  "To build and strengthen partnerships that enhance the capacity, effectiveness, and impact of development actors across Africa.";
-
-// Add these five keys to STOCK_IMAGES in lib/images.ts (see the note in chat)
 const CORE_VALUES = [
-  {
-    name: "Collaboration",
-    image: STOCK_IMAGES.valueCollaboration,
-    icon: HeartHandshake,
-    text: "Promoting inclusive partnerships across sectors",
-  },
-  {
-    name: "Integrity",
-    image: STOCK_IMAGES.valueIntegrity,
-    icon: ShieldCheck,
-    text: "Upholding transparency, accountability, and ethical practices",
-  },
-  {
-    name: "Innovation",
-    image: STOCK_IMAGES.valueInnovation,
-    icon: Lightbulb,
-    text: "Encouraging adaptive and scalable development solutions",
-  },
-  {
-    name: "Impact",
-    image: STOCK_IMAGES.valueImpact,
-    icon: Target,
-    text: "Focusing on measurable and sustainable results",
-  },
-  {
-    name: "Inclusivity",
-    image: STOCK_IMAGES.valueInclusivity,
-    icon: Users,
-    text: "Ensuring no one is left behind in development processes",
-  },
+  { name: "Collaboration", icon: HeartHandshake, text: "Promoting inclusive partnerships across sectors" },
+  { name: "Integrity", icon: ShieldCheck, text: "Upholding transparency, accountability, and ethical practices" },
+  { name: "Innovation", icon: Lightbulb, text: "Encouraging adaptive and scalable development solutions" },
+  { name: "Impact", icon: Target, text: "Focusing on measurable and sustainable results" },
+  { name: "Inclusivity", icon: Users, text: "Ensuring no one is left behind in development processes" },
 ];
 
 export default function VisionMissionPage() {
@@ -66,88 +24,63 @@ export default function VisionMissionPage() {
     <>
       <Header />
       <main className="flex-1 bg-white">
-        {/* Intro */}
-        <section className="mx-auto max-w-6xl px-6 pb-4 pt-16 md:pt-24">
-          <h1 className="font-display max-w-3xl text-4xl font-extrabold tracking-tight text-brand-950 sm:text-5xl">
-            Vision, Mission, and Core Values
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-900/80">
-            {INTRO}
-          </p>
+        <section className="relative isolate overflow-hidden bg-brand-950 text-white">
+          <Image src={STOCK_IMAGES.vision} alt="" fill priority sizes="100vw" className="-z-20 object-cover" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/85" />
+          <div className="mx-auto max-w-7xl px-6 py-20 sm:px-10 md:py-28 lg:px-12">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">Our purpose</p>
+            <h1 className="font-display mt-5 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+              A shared vision for a more inclusive Africa.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
+              Our vision, mission, and values guide how we connect people and work towards sustainable development.
+            </p>
+            <a href="#vision" className="mt-8 inline-flex items-center gap-2 rounded text-sm font-bold text-white underline decoration-accent-500 decoration-2 underline-offset-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Explore our purpose</a>
+          </div>
         </section>
 
-        {/* Vision and Mission: two cards side by side */}
-        <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
+        <section id="vision" className="mx-auto max-w-7xl px-6 py-20 sm:px-10 md:py-24 lg:px-12">
+          <div className="grid gap-5 md:grid-cols-2">
             <FadeIn className="h-full">
-              <article className="h-full rounded-3xl border-t-4 border-brand-800 bg-brand-50 p-8 ring-1 ring-brand-100 sm:p-10">
-                <h2 className="font-display text-xl font-bold text-brand-800">
-                  Vision
-                </h2>
-                <p className="font-display mt-4 text-2xl font-bold leading-snug text-brand-950">
-                  {VISION}
-                </p>
+              <article className="h-full rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100 sm:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">Where we aspire to go</p>
+                <h2 className="font-display mt-5 text-xl font-bold text-brand-700">Our vision</h2>
+                <p className="font-display mt-4 text-2xl font-bold leading-snug text-brand-950 sm:text-3xl">An Africa where collaborative action drives sustainable, inclusive, and scalable development outcomes.</p>
               </article>
             </FadeIn>
-
             <FadeIn delay={0.1} className="h-full">
-              <article className="h-full rounded-3xl border-t-4 border-accent-500 bg-brand-900 p-8 shadow-xl sm:p-10">
-                <h2 className="font-display text-xl font-bold text-accent-500">
-                  Mission
-                </h2>
-                <p className="font-display mt-4 text-2xl font-bold leading-snug text-white">
-                  {MISSION}
-                </p>
+              <article className="h-full rounded-3xl bg-brand-950 p-8 text-white sm:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">How we get there</p>
+                <h2 className="font-display mt-5 text-xl font-bold text-brand-300">Our mission</h2>
+                <p className="font-display mt-4 text-2xl font-bold leading-snug sm:text-3xl">To build and strengthen partnerships that enhance the capacity, effectiveness, and impact of development actors across Africa.</p>
               </article>
             </FadeIn>
           </div>
         </section>
 
-        {/* Core values */}
-        <section className="bg-brand-50 py-16 md:py-24">
-          <div className="mx-auto max-w-6xl px-6">
+        <section className="bg-brand-50 py-20 md:py-24">
+          <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-12">
             <FadeIn>
-              <h2 className="font-display text-2xl font-extrabold tracking-tight text-brand-950 sm:text-3xl">
-                Core Values
-              </h2>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">What guides us</p>
+              <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-brand-950 sm:text-4xl">Our values in action.</h2>
+              <p className="mt-4 max-w-2xl leading-7 text-brand-900/75">These principles shape the way we build relationships and approach development.</p>
             </FadeIn>
-            <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {CORE_VALUES.map(({ name, image, icon: Icon, text }, i) => (
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {CORE_VALUES.map(({ name, icon: Icon, text }, i) => (
                 <li key={name}>
-                  <FadeIn delay={(i % 3) * 0.1} className="h-full">
-                    <div className="h-full overflow-hidden rounded-2xl bg-white ring-1 ring-brand-100">
-                      <div className="relative aspect-[16/10] bg-brand-900">
-                        <Image
-                          src={image}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="(min-width: 1024px) 24rem, (min-width: 640px) 50vw, 100vw"
-                        />
-                        {/* Shared blue tint so mixed stock photos feel like one set */}
-                        <div
-                          aria-hidden
-                          className="absolute inset-0 bg-brand-800/25 mix-blend-multiply"
-                        />
-                        <span className="absolute -bottom-6 left-6 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-800 text-white ring-4 ring-white">
-                          <Icon aria-hidden className="h-6 w-6" />
-                        </span>
-                      </div>
-                      <div className="px-7 pb-7 pt-10">
-                        <h3 className="font-display text-xl font-bold text-brand-950">
-                          {name}
-                        </h3>
-                        <p className="mt-2 text-[15px] leading-relaxed text-brand-900/80">
-                          {text}
-                        </p>
-                      </div>
-                    </div>
+                  <FadeIn delay={(i % 3) * 0.08} className="h-full">
+                    <article className="h-full rounded-2xl bg-white p-7 ring-1 ring-brand-100">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><Icon aria-hidden="true" className="h-6 w-6" /></span>
+                      <h3 className="font-display mt-7 text-xl font-bold text-brand-950">{name}</h3>
+                      <p className="mt-3 text-[15px] leading-7 text-brand-900/75">{text}</p>
+                    </article>
                   </FadeIn>
                 </li>
               ))}
             </ul>
           </div>
         </section>
+        <PageCallToAction />
       </main>
       <Footer />
     </>

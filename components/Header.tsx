@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "framer-motion";
+import { ArrowDownRight, ArrowRight, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -22,15 +22,14 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>(pathname);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const reduce = useReducedMotion();
 
-  useEffect(() => {
-    setActive(pathname);
-  }, [pathname]);
-
   useLayoutEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -42,165 +41,163 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onBreakpointChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    desktop.addEventListener("change", onBreakpointChange);
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+      desktop.removeEventListener("change", onBreakpointChange);
     };
   }, [open]);
 
-  const t = reduce ? { duration: 0 } : { duration: 0.28, ease: "easeOut" as const };
-
   return (
-    <>
-      <header
-        className={`sticky top-0 z-50 border-b bg-white/90 backdrop-blur transition-shadow duration-200 ${
-          scrolled
-            ? "border-brand-100 shadow-[0_2px_14px_rgba(11,47,143,0.08)]"
-            : "border-transparent"
-        }`}
-      >
-        <div
-          className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-[padding] duration-200 ${
-            scrolled ? "py-2" : "py-3.5"
-          }`}
+    <header
+      ref={headerRef}
+      onBlur={(event) => {
+        if (open && event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) {
+          setOpen(false);
+        }
+      }}
+      className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur-md transition-shadow duration-200 motion-reduce:transition-none ${
+        scrolled || open
+          ? "border-brand-100 shadow-[0_8px_30px_rgba(11,31,77,0.08)]"
+          : "border-brand-100/70"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-5 px-6 sm:px-10 lg:px-12">
+        <Link href="/" aria-label="Afri-Collabs for Development, home" className={`shrink-0 rounded-md ${FOCUS}`} onNavigate={() => setOpen(false)}>
+          <Image
+            src="/logo-full.png"
+            alt=""
+            width={599}
+            height={202}
+            priority
+            unoptimized
+            className="h-10 w-auto sm:h-12"
+          />
+        </Link>
+
+        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`relative rounded-full px-3 py-2.5 text-sm font-semibold transition-colors motion-reduce:transition-none ${FOCUS} ${
+                  isActive
+                    ? "bg-brand-50 text-brand-800"
+                    : "text-brand-900/75 hover:bg-brand-50 hover:text-brand-800"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <Link href="/contact" className={`group hidden min-h-11 shrink-0 items-center gap-2 rounded-full bg-accent-500 px-5 py-3 text-sm font-bold text-brand-950 transition-colors hover:bg-accent-600 motion-reduce:transition-none lg:inline-flex ${FOCUS}`}>
+          Partner with us
+          <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+        </Link>
+
+        <button
+          ref={menuButtonRef}
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls={open ? "mobile-menu" : undefined}
+          className={`inline-flex min-h-11 items-center gap-2 rounded-full border border-brand-200 px-4 text-sm font-bold text-brand-950 transition-colors hover:bg-brand-50 motion-reduce:transition-none lg:hidden ${FOCUS}`}
         >
-          <Link
-            href="/"
-            className={`flex items-center rounded-md ${FOCUS}`}
-            onClick={() => setOpen(false)}
-          >
-            <Image
-              src="/logo-full.png"
-              alt="Afri-Collabs for Development"
-              width={599}
-              height={202}
-              priority
-              unoptimized
-              className={`w-auto transition-[height] duration-200 ${
-                scrolled ? "h-9 sm:h-10" : "h-10 sm:h-12"
-              }`}
-            />
-          </Link>
-
-          <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
-            {NAV_LINKS.map((link) => {
-              const isActive = active === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`relative py-1 text-[15px] font-medium transition-colors ${FOCUS} ${
-                    isActive
-                      ? "text-brand-800"
-                      : "text-brand-900/70 hover:text-brand-800"
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    aria-hidden
-                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-brand-500 transition-transform duration-200 ${
-                      isActive ? "scale-x-100" : "scale-x-0"
-                    }`}
-                  />
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/contact"
-              className={`hidden rounded-full bg-accent-500 px-6 py-2.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 md:inline-block ${FOCUS}`}
-            >
-              Partner with us
-            </Link>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className={`inline-flex items-center justify-center rounded-md p-2 text-brand-900 md:hidden ${FOCUS}`}
-              aria-label="Open menu"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-          </div>
-        </div>
-      </header>
+          <span>{open ? "Close" : "Menu"}</span>
+          {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
+        </button>
+      </div>
 
       <AnimatePresence>
         {open && (
-          <>
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={t}
-              className="fixed inset-0 z-40 bg-brand-950/50 md:hidden"
-              onClick={() => setOpen(false)}
-            />
-            <motion.nav
-              key="drawer"
-              id="mobile-menu"
-              aria-label="Mobile"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={t}
-              className="fixed inset-y-0 right-0 z-50 flex w-[min(22rem,100%)] flex-col bg-white p-6 shadow-2xl md:hidden"
-            >
-              <div className="flex items-center justify-between">
-                <Image
-                  src="/logo-full.png"
-                  alt="Afri-Collabs for Development"
-                  width={599}
-                  height={202}
-                  unoptimized
-                  className="h-9 w-auto"
-                />
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className={`inline-flex items-center justify-center rounded-md p-2 text-brand-900 ${FOCUS}`}
-                  aria-label="Close menu"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              <div className="mt-8 flex flex-col divide-y divide-brand-100 border-y border-brand-100">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={`py-4 text-lg font-semibold transition-colors ${FOCUS} ${
-                      active === link.href
-                        ? "text-brand-500"
-                        : "text-brand-900 hover:text-brand-500"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className={`mt-auto rounded-full bg-accent-500 px-5 py-3 text-center text-base font-semibold text-brand-950 hover:bg-accent-600 ${FOCUS}`}
-              >
-                Partner with us
-              </Link>
-            </motion.nav>
-          </>
+          <MobileMenu key="mobile-menu" pathname={pathname} reduce={reduce} onNavigate={() => setOpen(false)} />
         )}
       </AnimatePresence>
-    </>
+    </header>
+  );
+}
+
+function MobileMenu({
+  pathname,
+  reduce,
+  onNavigate,
+}: {
+  pathname: string;
+  reduce: boolean | null;
+  onNavigate: () => void;
+}) {
+  const isPresent = useIsPresent();
+
+  return (
+    <motion.div
+      id="mobile-menu"
+      inert={!isPresent}
+      aria-hidden={!isPresent}
+      initial={reduce ? false : { opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, height: 0 }}
+      transition={reduce ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }}
+      className="absolute inset-x-0 top-full overflow-hidden bg-white shadow-[0_20px_35px_rgba(11,31,77,0.14)] lg:hidden"
+    >
+      <div className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-brand-100 px-6 pb-7 pt-6 sm:px-10">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">Explore Afri-Collabs</p>
+        <nav aria-label="Mobile" className="mt-4">
+          {NAV_LINKS.map((link, index) => {
+            const isActive = pathname === link.href;
+            return (
+              <motion.div
+                key={link.href}
+                initial={reduce ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={reduce ? { duration: 0 } : { duration: 0.25, delay: index * 0.035 }}
+              >
+                <Link
+                  href={link.href}
+                  onNavigate={onNavigate}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`group flex min-h-14 items-center gap-4 border-b border-brand-100 py-3 ${FOCUS}`}
+                >
+                  <span className="text-xs font-bold tabular-nums text-brand-600">{String(index + 1).padStart(2, "0")}</span>
+                  <span className={`font-display flex-1 text-lg font-bold ${isActive ? "text-brand-600" : "text-brand-950 group-hover:text-brand-600"}`}>{link.label}</span>
+                  {isActive && <span className="text-xs font-semibold text-brand-600">Current</span>}
+                  <ArrowDownRight aria-hidden="true" className="h-4 w-4 text-brand-500 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                </Link>
+              </motion.div>
+            );
+          })}
+        </nav>
+        <Link href="/contact" onNavigate={onNavigate} className={`group mt-6 flex min-h-12 items-center justify-between gap-4 rounded-full bg-accent-500 px-6 py-3 text-sm font-bold text-brand-950 transition-colors hover:bg-accent-600 motion-reduce:transition-none ${FOCUS}`}>
+          Partner with us
+          <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+        </Link>
+        <p className="mt-5 text-xs font-medium text-brand-900/65">Based in Lusaka, Zambia · A regional outlook</p>
+      </div>
+    </motion.div>
   );
 }

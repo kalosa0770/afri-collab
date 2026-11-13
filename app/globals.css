@@ -25,6 +25,7 @@
   --color-brand-500: #2563eb;
   --color-brand-400: #5b8def; /* new */
   --color-brand-300: #93c5fd;
+  --color-brand-200: #cbdcf5;
   --color-brand-100: #e6eefc;
   --color-brand-50: #f4f8fe;
 
@@ -46,5 +47,10 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .motion-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

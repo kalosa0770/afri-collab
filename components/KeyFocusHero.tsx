@@ -1,120 +1,50 @@
 "use client";
 
-// Save as: components/KeyFocusHero.tsx
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type Slide = { id: string; title: string; image: string };
 
-const INTERVAL_MS = 5000;
-
-const FOCUS =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
-
 export function KeyFocusHero({ slides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    if (paused || reduceMotion) return;
-    const id = setTimeout(
-      () => setIndex((i) => (i + 1) % slides.length),
-      INTERVAL_MS
-    );
-    return () => clearTimeout(id);
-  }, [index, paused, reduceMotion, slides.length]);
-
   const current = slides[index];
 
+  function move(direction: number) {
+    setIndex((value) => (value + direction + slides.length) % slides.length);
+  }
+
   return (
-    <section className="relative isolate flex min-h-[30rem] flex-col overflow-hidden bg-brand-950 md:min-h-[36rem]">
-      {/* Background photos crossfade with the text */}
-      {slides.map(({ id, image }, i) => (
-        <Image
-          key={id}
-          src={image}
-          alt=""
-          fill
-          priority={i === 0}
-          sizes="100vw"
-          className={`-z-20 object-cover transition-opacity duration-700 motion-reduce:transition-none ${
-            i === index ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-brand-950/70 md:bg-brand-950/30" />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 hidden bg-linear-to-r from-brand-950/90 via-brand-950/65 to-transparent md:block"
-      />
-
-      <div
-        className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-16 md:py-24"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        <h1 className="font-display text-lg font-semibold text-white/85 sm:text-xl">
-          Key Focus Areas
-          <span className="sr-only">: {slides.map((s) => s.title).join(", ")}</span>
-        </h1>
-
-        {/* All titles share one grid cell so the layout never jumps */}
-        <div aria-hidden className="mt-3 grid max-w-3xl">
-          {slides.map(({ id, title }, i) => (
-            <span
-              key={id}
-              className={`font-display col-start-1 row-start-1 text-4xl font-extrabold leading-[1.1] tracking-tight text-white transition-all duration-500 ease-out motion-reduce:transition-none sm:text-5xl lg:text-[3.5rem] ${
-                i === index
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none translate-y-4 opacity-0"
-              }`}
-            >
-              {title}
-            </span>
-          ))}
-        </div>
-
-        <div role="group" aria-label="Choose a focus area" className="mt-6 -ml-2 flex items-center">
-          {slides.map(({ id, title }, i) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setIndex(i)}
-              aria-label={title}
-              aria-current={i === index}
-              className={`group rounded-full p-2 ${FOCUS}`}
-            >
-              <span
-                className={`block h-1.5 rounded-full transition-all duration-300 ${
-                  i === index
-                    ? "w-8 bg-accent-500"
-                    : "w-1.5 bg-white/50 group-hover:bg-white"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-10">
-          <a
-            href={`#${current.id}`}
-            className={`group inline-flex items-center gap-2 rounded-full bg-accent-500 px-7 py-3.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-600 ${FOCUS}`}
-          >
-            Read more
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    <section className="bg-brand-950 text-white">
+      <div className="mx-auto grid max-w-7xl lg:min-h-[520px] lg:grid-cols-2">
+        <div className="flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-12 lg:py-20">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-500">Our focus areas</p>
+          <h1 className="font-display mt-5 max-w-xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+            Working together for inclusive development.
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
+            From youth leadership to stronger institutions, our focus areas connect people and ideas around shared challenges.
+          </p>
+          <a href="#focus-areas" className="mt-8 inline-flex w-fit items-center gap-2 rounded text-sm font-bold text-white underline decoration-accent-500 decoration-2 underline-offset-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+            Explore all focus areas <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </a>
+        </div>
+        <div role="region" aria-roledescription="carousel" aria-label="Featured focus areas" className="relative min-h-[320px] overflow-hidden lg:min-h-full">
+          {slides.map(({ id, image }, i) => (
+            <Image key={id} src={image} alt="" fill priority={i === 0} sizes="(min-width: 1024px) 50vw, 100vw" className={`object-cover transition-opacity duration-700 motion-reduce:transition-none ${i === index ? "opacity-100" : "opacity-0"}`} />
+          ))}
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-brand-950/90 via-brand-950/10 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-end sm:p-8">
+            <div aria-live="polite">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/75">Featured focus area</p>
+              <a href={`#${current.id}`} className="font-display mt-2 inline-block rounded text-lg font-bold underline decoration-white/50 underline-offset-4 hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{current.title}</a>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <span className="mr-1 text-xs font-semibold tabular-nums text-white/80">{String(index + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+              <button type="button" onClick={() => move(-1)} aria-label="Previous focus area" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/60 transition-colors hover:bg-white hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><ArrowLeft aria-hidden="true" className="h-4 w-4" /></button>
+              <button type="button" onClick={() => move(1)} aria-label="Next focus area" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/60 transition-colors hover:bg-white hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><ArrowRight aria-hidden="true" className="h-4 w-4" /></button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

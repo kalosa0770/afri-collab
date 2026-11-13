@@ -47,8 +47,6 @@ const ACTIVITY_GALLERY = [
   },
 ];
 
-const INTERVAL_MS = 4500;
-
 const FOCUS_RING =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500";
 
@@ -56,7 +54,6 @@ export function ServicesSlider() {
   const track = useRef<HTMLUListElement>(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(SERVICES.length);
-  const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   // Distance between the left edges of two neighbouring slides
@@ -111,30 +108,15 @@ export function ServicesSlider() {
   const next = () => goTo(page >= pages - 1 ? 0 : page + 1);
   const prev = () => goTo(page <= 0 ? pages - 1 : page - 1);
 
-  // Automatic advance; restarts after every change, pauses on hover/focus/touch
-  useEffect(() => {
-    if (paused || reduceMotion) return;
-    const id = setTimeout(
-      () => goTo(page >= pages - 1 ? 0 : page + 1),
-      INTERVAL_MS
-    );
-    return () => clearTimeout(id);
-  }, [page, pages, paused, reduceMotion, goTo]);
-
   return (
-    <div
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-      onTouchStart={() => setPaused(true)}
-      onTouchEnd={() => setPaused(false)}
-    >
-      <div className="flex items-end justify-between gap-6">
-        <h3 className="font-display text-2xl font-extrabold tracking-tight text-brand-950">
-          Services / Activities
-        </h3>
-        <div className="flex gap-2">
+    <div>
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">How we collaborate</p>
+          <h2 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-brand-950 sm:text-4xl">Services and activities</h2>
+          <p className="mt-4 max-w-xl leading-7 text-brand-900/75">From planning to learning, we support the work that brings development partnerships to life.</p>
+        </div>
+        <div className="flex shrink-0 gap-2">
           <button
             type="button"
             onClick={prev}
@@ -160,7 +142,7 @@ export function ServicesSlider() {
         role="region"
         aria-roledescription="carousel"
         aria-label="Services / Activities"
-        className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth motion-reduce:scroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {SERVICES.map(({ icon: Icon, text }, i) => (
           <li
@@ -201,17 +183,17 @@ export function ServicesSlider() {
         ))}
       </div>
 
-      <section aria-labelledby="activity-gallery-heading" className="mt-14">
+      <section aria-labelledby="activity-gallery-heading" className="mt-20">
         <div className="max-w-2xl">
-          <h4
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">A shared vision</p>
+          <h3
             id="activity-gallery-heading"
-            className="font-display text-2xl font-extrabold tracking-tight text-brand-950"
+            className="font-display mt-4 text-2xl font-extrabold tracking-tight text-brand-950 sm:text-3xl"
           >
-            Our Work in Action
-          </h4>
+            People at the heart of development
+          </h3>
           <p className="mt-3 leading-relaxed text-brand-900/75">
-            A glimpse of the workshops, conversations, and partnerships behind
-            our development work.
+            The communities, conversations, and partnerships that inspire our work.
           </p>
         </div>
 
