@@ -5,6 +5,7 @@ const EXPLORE = [
   { href: "/key-focus-areas", label: "Key Focus Areas" },
   { href: "/vision-mission", label: "Vision & Mission" },
   { href: "/about", label: "About" },
+  { href: "/#our-people", label: "Our People" },
   { href: "/cohorts", label: "Cohorts" },
   { href: "/contact", label: "Contact" },
 ];

@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { FadeIn } from "@/components/FadeIn";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { OurPeopleSection } from "@/components/OurPeopleSection";
 import { STOCK_IMAGES } from "@/lib/images";
 
 const PATHWAYS = [
@@ -160,7 +161,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Team section temporarily omitted from the homepage. */}
+        <OurPeopleSection />
         <Contact />
       </main>
       <Footer />
