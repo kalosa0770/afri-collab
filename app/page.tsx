@@ -160,6 +160,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Team section temporarily omitted from the homepage. */}
         <Contact />
       </main>
       <Footer />

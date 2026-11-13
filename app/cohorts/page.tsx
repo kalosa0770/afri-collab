@@ -4,18 +4,18 @@ import { ArrowDown } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import workshop from "@/public/images/gallery-4.jpg";
+import workshop from "@/public/images/team-member-09.jpeg";
 import facilitator from "@/public/images/cohorts-workshop-facilitator.jpg";
 import presentation from "@/public/images/cohorts-group-presentation.jpg";
-import participants from "@/public/images/gallery-2.jpg";
+import participants from "@/public/images/team-member-02.jpeg";
 import discussion from "@/public/images/cohorts-participant-discussion.jpg";
 import outing from "@/public/images/cohorts-group-outing.jpg";
-import speaker from "@/public/images/gallery-3.jpg";
+import speaker from "@/public/images/team-member-03.jpeg";
 import workshopSpeaker from "@/public/images/cohorts-workshop-speaker.jpg";
 import sharedMoment from "@/public/images/cohorts-shared-moment.jpg";
-import workshopTalk from "@/public/images/gallery-1.jpg";
-import participantVoice from "@/public/images/vision-bg.jpg";
-import groupActivity from "@/public/images/hero-img.jpg";
+import workshopTalk from "@/public/images/team-member-05.jpeg";
+import participantVoice from "@/public/images/team-member-01.jpeg";
+import groupActivity from "@/public/images/team-member-06.jpeg";
 import riversidePortrait from "@/public/images/cohorts-riverside-portrait.jpg";
 import riverOuting from "@/public/images/cohorts-river-outing.jpg";
 import riversideSunset from "@/public/images/cohorts-riverside-sunset.jpg";
@@ -26,18 +26,18 @@ export const metadata: Metadata = {
 };
 
 const PHOTOS: { src: StaticImageData; alt: string; caption: string }[] = [
-  { src: workshop, alt: "Participants gathered around tables during a workshop", caption: "Learning together" },
+  { src: workshop, alt: "A facilitator speaking to participants during a workshop", caption: "Learning together" },
   { src: facilitator, alt: "A facilitator speaking to workshop participants", caption: "Sharing perspectives" },
   { src: presentation, alt: "Two participants presenting to the group", caption: "Ideas in conversation" },
-  { src: participants, alt: "Participants listening and taking notes at a workshop", caption: "Listening and learning" },
+  { src: participants, alt: "A participant listening during a workshop", caption: "Listening and learning" },
   { src: discussion, alt: "A participant speaking and gesturing during a discussion", caption: "Making space for voices" },
   { src: outing, alt: "A group of participants standing together by the water", caption: "Building connections" },
   { src: speaker, alt: "A participant speaking to a room of attendees", caption: "Leading the conversation" },
   { src: workshopSpeaker, alt: "A participant speaking into a microphone", caption: "Learning from one another" },
   { src: sharedMoment, alt: "Participants sitting together around a table by the water", caption: "Moments together" },
-  { src: workshopTalk, alt: "A speaker addressing participants at a workshop", caption: "Sharing experience" },
+  { src: workshopTalk, alt: "A participant speaking into a microphone at a workshop", caption: "Sharing experience" },
   { src: participantVoice, alt: "A participant speaking into a microphone at a gathering", caption: "Voices in the room" },
-  { src: groupActivity, alt: "A participant with a notebook speaking during a group activity", caption: "Taking part" },
+  { src: groupActivity, alt: "A participant listening during a group discussion", caption: "Taking part" },
   { src: riversidePortrait, alt: "Two people sitting together by the water", caption: "A shared moment" },
   { src: riverOuting, alt: "A group spending time together on a boat", caption: "Connecting beyond the workshop" },
 ];
